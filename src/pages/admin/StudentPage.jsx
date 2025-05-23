@@ -1,9 +1,30 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { CgAddR } from "react-icons/cg";
 import { useNavigate } from 'react-router-dom';
 
 export default function StudentPage() {
     const navigate=useNavigate()
+    const [students, setStudents] = useState([]);
+
+  useEffect(() => {
+  const fetchStudents = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/api/students", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      setStudents(res.data);
+      
+    } catch (error) {
+      console.error("Error fetching students:", error);
+    }
+  };
+
+  fetchStudents();
+}, []);
+
   return (
     <div className="w-full h-full overflow-x-auto p-4">
         <form className="max-w-4xl mx-auto bg-slate-800 p-8 rounded-xl shadow-lg text-white">
@@ -68,47 +89,30 @@ export default function StudentPage() {
       </tr>
     </thead>
     <tbody className="divide-y divide-gray-200 text-sm">
-      {/* Example row – map through your data here */}
-      <tr>
-        <td className="px-4 py-2">ST001</td>
-        <td className="px-4 py-2">John Doe</td>
-        <td className="px-4 py-2">
-          <img
-            src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png"
-            alt="Student"
-            className="w-10 h-10 rounded-full object-cover"
-          />
-        </td>
-        <td className="px-4 py-2">123 Main St</td>
-        <td className="px-4 py-2">12</td>
-        <td className="px-4 py-2">2012-06-15</td>
-        <td className="px-4 py-2">ABC School</td>
-        <td className="px-4 py-2">Jane Doe</td>
-        <td className="px-4 py-2">+94712345678</td>
-        <td className="px-4 py-2">+94771234567</td>
-        <td className="px-4 py-2">Active</td>
-      </tr>
-      <tr>
-        <td className="px-4 py-2">ST001</td>
-        <td className="px-4 py-2">John Doe</td>
-        <td className="px-4 py-2">
-          <img
-            src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png"
-            alt="Student"
-            className="w-10 h-10 rounded-full object-cover"
-          />
-        </td>
-        <td className="px-4 py-2">123 Main St</td>
-        <td className="px-4 py-2">12</td>
-        <td className="px-4 py-2">2012-06-15</td>
-        <td className="px-4 py-2">ABC School</td>
-        <td className="px-4 py-2">Jane Doe</td>
-        <td className="px-4 py-2">+94712345678</td>
-        <td className="px-4 py-2">+94771234567</td>
-        <td className="px-4 py-2">Active</td>
-      </tr>
-      {/* Repeat rows dynamically */}
-    </tbody>
+  {students.map((s) => (
+    <tr key={s.sid}>
+      <td className="px-4 py-2">{s.sid}</td>
+      <td className="px-4 py-2">{s.s_name}</td>
+      <td className="px-4 py-2">
+        <img
+          src={s.s_image}
+          alt={s.s_name}
+          className="w-10 h-10 rounded-full object-cover"
+        />
+      </td>
+      <td className="px-4 py-2">{s.s_address}</td>
+      <td className="px-4 py-2">{s.s_age}</td>
+      <td className="px-4 py-2">{new Date(s.s_dob).toLocaleDateString()}</td>
+      <td className="px-4 py-2">{s.s_school}</td>
+      <td className="px-4 py-2">{s.parent_name}</td>
+      <td className="px-4 py-2">{s.tp_no}</td>
+      <td className="px-4 py-2">{s.watsapp_no}</td>
+      <td className="px-4 py-2">Active</td>
+      
+    </tr>
+  ))}
+</tbody>
+
   </table>
   <div className="fixed bottom-4 right-4">
     <button className=" hover:text-red-700 text-5xl text-white font-bold py-2 px-4 rounded-full" onClick={()=>navigate("/admin/studentdetails")}><CgAddR /></button>

@@ -1,9 +1,31 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import { CgAddR } from "react-icons/cg";
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
 
 export default function LecturePage() {
- const navigate=useNavigate()
+  const [lectures, setLectures] = useState([]);
+  const navigate=useNavigate()
+
+  useEffect(() => {
+    const fetchLectures = async () => {
+      try {
+        const token = localStorage.getItem('token'); 
+        const response = await axios.get('http://localhost:5000/api/lecturers', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        setLectures(response.data);
+      } catch (error) {
+        console.error('Error fetching lectures:', error);
+      }
+    };
+
+    fetchLectures();
+  }, []);
    return (
      <div className="w-full h-full overflow-x-auto p-4">
          <form className="max-w-4xl mx-auto bg-slate-800 p-8 rounded-xl shadow-lg text-white">
@@ -58,21 +80,19 @@ export default function LecturePage() {
        </tr>
      </thead>
      <tbody className="divide-y divide-gray-200 text-sm">
-       {/* Example row – map through your data here */}
-       <tr>
-         <td className="px-4 py-2">LEC001</td>
-         <td className="px-4 py-2">John Doe</td>
-        
-         <td className="px-4 py-2">123 Main St</td>
-         <td className="px-4 py-2">MSc</td>
-        
-         <td className="px-4 py-2">+94712345678</td>
-         <td className="px-4 py-2">+94771234567</td>
-         <td className="px-4 py-2">Active</td>
-       </tr>
-       
-       {/* Repeat rows dynamically */}
-     </tbody>
+          {lectures.map((lec) => (
+            <tr key={lec.lid}>
+              <td className="px-4 py-2">{lec.lid}</td>
+              <td className="px-4 py-2">{lec.lec_name}</td>
+              <td className="px-4 py-2">{lec.lec_address}</td>
+              <td className="px-4 py-2">{lec.qualification}</td>
+              <td className="px-4 py-2">{lec.tp_no}</td>
+              <td className="px-4 py-2">{lec.whatsapp_no}</td>
+              <td className="px-4 py-2">Active</td>
+              <td className="px-4 py-2">--</td>
+            </tr>
+          ))}
+        </tbody>
    </table>
    <div className="fixed bottom-4 right-4">
      <button className=" hover:text-red-700 text-5xl text-white font-bold py-2 px-4 rounded-full" onClick={()=>navigate("/admin/lecdetails")}><CgAddR /></button>
