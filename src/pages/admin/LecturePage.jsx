@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { CgAddR } from "react-icons/cg";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { MdModeEdit, MdDelete } from 'react-icons/md';
 
 
 export default function LecturePage() {
@@ -89,7 +90,20 @@ export default function LecturePage() {
               <td className="px-4 py-2">{lec.tp_no}</td>
               <td className="px-4 py-2">{lec.whatsapp_no}</td>
               <td className="px-4 py-2">Active</td>
-              <td className="px-4 py-2">--</td>
+              <td className="px-4 py-2 flex space-x-4">
+                <button 
+                  onClick={()=>navigate(`/admin/lecdetails/${lec.lid}`)}
+                  className="text-blue-600 hover:text-blue-800 text-xl"
+                >
+                  <MdModeEdit/>
+                </button>
+                <button
+                  onClick={() => handleDelete(lec.lid)}
+                  className="text-red-600 hover:text-red-800 text-xl"
+                >
+                  <MdDelete/>
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>

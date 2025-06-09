@@ -8,6 +8,7 @@ import StudentPayment from './StudentPayment';
 import LecPayment from './LecPayment';
 import UserPage from './UserPage';
 import StudentDetails from './StudentDetails';
+import SchoolPage from './SchoolPage';
 
 export default function Dashboard() {
     const user = {name:"John Doe",email:"x0Z3H@example.com",role:"Admin"}
@@ -24,6 +25,7 @@ export default function Dashboard() {
         {name:"Student Payments",path:"/admin/stpayments",icon:"",role:"User"},
         {name:"Lecture Payments",path:"/admin/lecpayments",icon:"",role:"Admin"},
         {name:"User",path:"/admin/user",icon:"",role:"User"},
+        {name:"School",path:"/admin/school",icon:"",role:"Admin"}
     ];
 
     const toggleDarkTheme = () => {
@@ -78,6 +80,8 @@ export default function Dashboard() {
                         <Route path='/stpayments' element={<StudentPayment/>}/>
                         <Route path='/lecpayments' element={<LecPayment/>}/>
                         <Route path='/user' element={<UserPage/>}/>
+                        <Route path='/school' element={<SchoolPage/>}/>
+                        <Route path='/schoolDetails' element={<SchoolDetails/>}/>                       
                     </Routes>
                 </div>
 
