@@ -19,7 +19,7 @@ export default function StudentDetails() {
   const[parentName, setParentName]= useState('');
   const[tpNo,setTpno]= useState('');
   const[watsappNo,setWatsappNo]= useState('');
-  const [active, setActive] = useState(true);
+  const [isActive,setIsactive] = useState(true);
  
  
 
@@ -30,8 +30,7 @@ export default function StudentDetails() {
       return;
     }
     e.preventDefault();
-   const studentData={       
-    s_id:sid,
+   const studentData={   
     s_name:sname,
     s_gender:gender,
     s_address:address,
@@ -41,6 +40,7 @@ export default function StudentDetails() {
     parent_name:parentName,
     tp_no:tpNo,
     watsapp_no:watsappNo,
+    isActive:isActive
    }
    const res=axios.post('http://localhost:5000/api/students',studentData,
     {headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}}).then((res)=>{
@@ -59,7 +59,7 @@ export default function StudentDetails() {
 
   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
   
-    <FormRow lblName="Student ID" type="text" name="s_id" placeholder="Enter Student ID" readOnly={true} />
+   
     <FormRow lblName="Student Name" type="text" name="s_name" placeholder="Enter Student Name"  required={true} onChange={(e)=>{setSname(e.target.value)}}/>
     <div>
     <label className="block mb-2 text-sm font-medium text-white">Gender</label>
@@ -97,9 +97,10 @@ export default function StudentDetails() {
     <FormRow lblName="Parent Name" type="text" name="parent_name" placeholder="Enter Parent Name" required={true} onChange={(e)=>{setParentName(e.target.value)}}/>
     <FormRow lblName="Telephone number" type="text" name="tp_no" placeholder="0112345678" required={true} onChange={(e)=>{setTpno(e.target.value)}}/>
     <FormRow lblName="Watsapp number" type="text" name="watsapp_no" placeholder="Watsapp number" required={true} onChange={(e)=>{setWatsappNo(e.target.value)}}/>
-    
+      <div>
+      <input type="checkbox" name="isActive" value={isActive} defaultChecked onChange={(e)=>{setIsActive(e.target.checked)}}/> Active
 
-   
+      </div>
   </div>
 
   <div className="mt-8 text-center">

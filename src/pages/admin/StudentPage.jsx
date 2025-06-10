@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { CgAddR } from "react-icons/cg";
 import { useNavigate } from 'react-router-dom';
+import { FaEdit } from "react-icons/fa";
 
 export default function StudentPage() {
     const navigate=useNavigate()
@@ -16,6 +17,8 @@ export default function StudentPage() {
         },
       });
       setStudents(res.data);
+      
+      
       
     } catch (error) {
       console.error("Error fetching students:", error);
@@ -107,7 +110,14 @@ export default function StudentPage() {
       <td className="px-4 py-2">{s.parent_name}</td>
       <td className="px-4 py-2">{s.tp_no}</td>
       <td className="px-4 py-2">{s.watsapp_no}</td>
-      <td className="px-4 py-2">Active</td>
+      <td className="px-4 py-2" >
+        <span className={`inline-block px-3 py-1 rounded-full text-white ${s.isActive ? 'bg-green-500' : 'bg-red-500'}`}>
+          {s.isActive?'Active':'Inactive'}
+        </span>
+      </td>
+      <td className='px-4 py-2 flex'>
+        <td className="px-4 py-2 flex justify-center items-center"><FaEdit className='hover:text-red-700 text-2xl'/></td>
+      </td>
       
     </tr>
   ))}
@@ -115,7 +125,7 @@ export default function StudentPage() {
 
   </table>
   <div className="fixed bottom-4 right-4">
-    <button className=" hover:text-red-700 text-5xl text-white font-bold py-2 px-4 rounded-full" onClick={()=>navigate("/admin/studentdetails")}><CgAddR /></button>
+    <button className=" hover:text-red-700 text-5xl bg-blue-900 text-red-500 font-bold " onClick={()=>navigate("/admin/studentdetails")}><CgAddR /></button>
   </div>
 </div>
 
