@@ -42,6 +42,8 @@ export default function Dashboard() {
         {name:"Lecture Payments",path:"/admin/lecpayments",icon:"",role:"Admin"},
         {name:"User",path:"/admin/user",icon:"",role:"User"},
         {name:"School",path:"/admin/school",icon:"",role:"Admin"},
+        
+
     ];
 
     const toggleDarkTheme = () => {
