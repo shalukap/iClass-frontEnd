@@ -10,7 +10,7 @@ export default function SchoolPage() {
 
   const fetchSchools = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/schools", {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/schools`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       setSchools(res.data);

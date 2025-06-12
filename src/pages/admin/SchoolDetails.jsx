@@ -4,7 +4,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import FormRow from '../../components/FormRow';
 
-const API_BASE = 'http://localhost:5000/api/schools';
+const API_BASE = `${import.meta.env.VITE_API_URL}/api/schools`;
 
 export default function SchoolDetails() {
   const { schoolId } = useParams();

@@ -42,7 +42,7 @@ export default function StudentDetails() {
     watsapp_no:watsappNo,
     isActive:isActive
    }
-   const res=axios.post('http://localhost:5000/api/students',studentData,
+   const res=axios.post(`${import.meta.env.VITE_API_URL}/api/students`,studentData,
     {headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}}).then((res)=>{
       toast.success('New Student added successfully')
       setTimeout(() => navigate('/admin/students'), 1000);

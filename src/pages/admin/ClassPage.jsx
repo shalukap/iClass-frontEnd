@@ -10,7 +10,7 @@ export default function ClassPage() {
  useEffect(() => {
    const fetchClass = async () => {
      try {
-      const res=await axios.get('http://localhost:5000/api/classrooms',{headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}}).then((res)=>{
+      const res=await axios.get(`${import.meta.env.VITE_API_URL}/api/classrooms`,{headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}}).then((res)=>{
         setClasses(res.data)
         }).catch((err)=>{
           console.log(err)

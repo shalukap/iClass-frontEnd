@@ -12,7 +12,7 @@ export default function ClassDetails() {
         class_name:clsName,
         lec_name:lecName,        
        }
-       const res=axios.post('http://localhost:5000/api/classrooms',clsData,
+       const res=axios.post(`${import.meta.env.VITE_API_URL}/api/classrooms`,clsData,
         {headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}}).then((res)=>{
           console.log(res)})
           .catch((err)=>{

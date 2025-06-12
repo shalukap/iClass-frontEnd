@@ -13,7 +13,7 @@ export default function LecturePage() {
     const fetchLectures = async () => {
       try {
         const token = localStorage.getItem('token'); 
-        const response = await axios.get('http://localhost:5000/api/lecturers', {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/lecturers`, {
           headers: {
             Authorization: `Bearer ${token}`
           }

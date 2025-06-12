@@ -11,7 +11,7 @@ export default function StudentPage() {
   useEffect(() => {
   const fetchStudents = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/students", {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/students`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
