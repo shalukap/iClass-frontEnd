@@ -17,6 +17,8 @@ import Login from './pages/login'
 import { Toaster } from 'react-hot-toast'
 import ProtectedRoute from './components/ProtectedRoute'
 import ErrorPage from './pages/ErrorPage'
+import SchoolPage from './pages/admin/SchoolPage'
+import SchoolDetails from './pages/admin/SchoolDetails'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -67,6 +69,26 @@ function App() {
           path:'user',
           element:<UserPage/>
         },
+        {
+
+          path: 'school',
+          children: [
+            {
+              path: '',
+              element: <SchoolPage />
+            },
+            {
+              path: 'add',
+              element: <SchoolDetails />   // for creating
+            },
+            {
+              path: ':schoolId',
+              element: <SchoolDetails />   // for editing
+            }
+          ]
+        }
+
+
       ]
     },
     {

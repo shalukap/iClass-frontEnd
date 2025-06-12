@@ -3,6 +3,8 @@ import { Link, Outlet, Route, Routes, useLocation, useNavigate } from 'react-rou
 import { CgUser } from "react-icons/cg";
 import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
+import SchoolPage from './SchoolPage';
+import SchoolDetails from './SchoolDetails';
 
 export default function Dashboard() {
     let user=null
@@ -39,7 +41,9 @@ export default function Dashboard() {
         {name:"Student Payments",path:"/admin/stpayments",icon:"",role:"User"},
         {name:"Lecture Payments",path:"/admin/lecpayments",icon:"",role:"Admin"},
         {name:"User",path:"/admin/user",icon:"",role:"User"},
+        {name:"School",path:"/admin/school",icon:"",role:"Admin"},
         
+
     ];
 
     const toggleDarkTheme = () => {
@@ -61,7 +65,7 @@ export default function Dashboard() {
                         <h4>Class Managment system</h4>
 
                     </div>
-                    <div className='flex flex-col items-center justify-center'>
+                    <div className='w-[300px] h-screen bg-slate-700 fixed flex flex-col overflow-y-auto scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-700'>
                         {menuItems.filter(item=>{
                             if(user.role==="Admin") return true;
                             if(user.role==="User") return item.role!=="Admin";
